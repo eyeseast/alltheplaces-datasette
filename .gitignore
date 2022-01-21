@@ -1,0 +1,7 @@
+output/
+output.*
+
+*.db
+*.db-wal
+*.db-journal
+*.db-shm
