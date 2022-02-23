@@ -1,0 +1,8 @@
+databases:
+  alltheplaces:
+    tables:
+      KNN:
+        hidden: true
+
+      data_licenses:
+        hidden: true
