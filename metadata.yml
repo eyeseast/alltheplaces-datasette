@@ -6,3 +6,16 @@ databases:
 
       data_licenses:
         hidden: true
+
+    queries:
+      count_by_spider:
+        sql: |
+          select
+            json_extract(properties, "$.@spider") as spider,
+            count(*) as count
+          from
+            places
+          group by
+            spider
+          order by
+            spider

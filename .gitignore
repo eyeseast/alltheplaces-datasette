@@ -1,6 +1,9 @@
 output/
 output.*
 
+raw/
+processed/
+
 *.db
 *.db-wal
 *.db-journal

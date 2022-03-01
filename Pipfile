@@ -9,6 +9,7 @@ datasette-geojson-map = "*"
 geojson-to-sqlite = {editable = true, ref = "25-bundle-properties", git = "https://github.com/eyeseast/geojson-to-sqlite.git"}
 sqlite-utils = "*"
 tqdm = "*"
+census-map-downloader = "*"
 
 [dev-packages]
 
