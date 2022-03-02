@@ -22,7 +22,7 @@ update: output.tar.gz
 	find output -type f -empty -delete
 
 build: $(DB)
-	pipenv run find output/*.geojson | parallel -j 3 geojson-to-sqlite $^ places {} --spatialite --properties
+	find output/*.geojson | xargs -I {} geojson-to-sqlite $^ places {} --spatialite --properties
 
 states: processed/states_carto_2018.geojson
 	pipenv run geojson-to-sqlite $(DB) states $^ --pk geoid --spatialite

@@ -19,3 +19,22 @@ databases:
             spider
           order by
             spider
+
+      dunkin_in_boston:
+        title: Dunkin in Boston
+        sql: |
+          select
+            id,
+            properties,
+            properties ->> 'addr:full' as address,
+            properties ->> 'website' as website,
+            geometry,
+            'small' as [marker-size],
+            'cafe' as [marker-symbol]
+          from
+            places
+          where
+            properties ->> '@spider' = 'dunkindonuts'
+            and properties ->> 'addr:state' = 'MA'
+            and properties ->> 'addr:city' LIKE '%Boston%'
+
