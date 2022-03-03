@@ -9,6 +9,9 @@ output.tar.gz:
 processed/states_carto_2018.geojson:
 	pipenv run censusmapdownloader states-carto
 
+processed/counties_2020.geojson:
+	pipenv run censusmapdownloader counties
+
 alltheplaces.db:
 	pipenv run sqlite-utils create-database --enable-wal --init-spatialite $@
 	pipenv run sqlite-utils create-table $@ places \
@@ -22,10 +25,16 @@ update: output.tar.gz
 	find output -type f -empty -delete
 
 build: $(DB)
-	find output/*.geojson | xargs -I {} geojson-to-sqlite $^ places {} --spatialite --properties
+	find output/*.geojson | xargs -I {} pipenv run geojson-to-sqlite $(DB) places {} --spatialite --properties
+	pipenv run create-spatial-index $(DB) places geometry
 
 states: processed/states_carto_2018.geojson
 	pipenv run geojson-to-sqlite $(DB) states $^ --pk geoid --spatialite
+	pipenv run sqlite-utils create-spatial-index $(DB) states geometry
+
+counties: processed/counties_2020.geojson
+	pipenv run geojson-to-sqlite $(DB) counties $^ --pk geoid --spatialite
+	pipenv run sqlite-utils create-spatial-index $(DB) counties geometry
 
 run: alltheplaces.db
 	pipenv run datasette serve *.db \

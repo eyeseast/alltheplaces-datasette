@@ -21,7 +21,7 @@ databases:
             spider
 
       dunkin_in_boston:
-        title: Dunkin in Boston
+        title: Dunkin in Boston (LIKE)
         sql: |
           select
             id,
@@ -37,3 +37,35 @@ databases:
             json_extract(properties, '$.@spider') = 'dunkindonuts'
             and json_extract(properties, '$.addr:state') = 'MA'
             and json_extract(properties, '$.addr:city') LIKE '%Boston%'
+
+      dunkin_in_suffolk:
+        title: Dunkin vs Starbucks in Suffolk, MA
+        sql: |
+          select
+            places.id,
+            json_extract(places.properties, '$.addr:full') as address,
+            json_extract(places.properties, '$.website') as website,
+            places.geometry,
+            'small' as [marker-size],
+            'cafe' as [marker-symbol],
+            case
+              json_extract(properties, '$.@spider')
+              when 'dunkindonuts' then '#8856a7'
+              when 'starbucks' then '#2ca25f'
+            end as [marker-color]
+          from
+            places,
+            counties
+          where
+            json_extract(properties, '$.@spider') in ('dunkindonuts', 'starbucks')
+            and counties.geoid = '25025'
+            and within(places.geometry, counties.geometry)
+            and places.rowid in (
+              select
+                rowid
+              from
+                SpatialIndex
+              where
+                f_table_name = 'places'
+                and search_frame = counties.geometry
+            )
