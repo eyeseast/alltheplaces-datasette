@@ -24,13 +24,15 @@ databases:
         sql: |
           select
             json_extract(properties, '$.@spider') as spider,
-            count(*)
+            count(*) as count
           from
             places
           where
             spider like '%coffee%'
+            or spider in ('dunkindonuts', 'starbucks')
           group by
             spider
+          order by count desc
 
       dunkin_in_boston:
         title: Dunkin in Boston (LIKE)
@@ -55,6 +57,7 @@ databases:
         sql: |
           select
             places.id,
+            json_extract(places.properties, '$.@spider') as type,
             json_extract(places.properties, '$.addr:full') as address,
             json_extract(places.properties, '$.website') as website,
             places.geometry,
@@ -69,7 +72,7 @@ databases:
             places,
             counties
           where
-            json_extract(properties, '$.@spider') in ('dunkindonuts', 'starbucks')
+            json_extract(properties, '$.@spider') in ('dunkindonuts', 'starbucks', 'caribou_coffee')
             and counties.geoid = '25025'
             and within(places.geometry, counties.geometry)
             and places.rowid in (
