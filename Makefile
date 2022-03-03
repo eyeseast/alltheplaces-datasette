@@ -33,5 +33,17 @@ run: alltheplaces.db
 		-m metadata.yml \
 		--setting sql_time_limit_ms 20000
 
+publish:
+	pipenv run datasette publish fly *.db \
+		--app alltheplaces-datasette \
+		--spatialite \
+		-m metadata.yml \
+		--install datasette-geojson-map \
+		--install sqlite-colorbrewer \
+		--extra-options="--setting sql_time_limit_ms 5000"
+
+open:
+	flyctl open --app alltheplaces-datasette
+
 clean:
 	rm -rf output/ output.*

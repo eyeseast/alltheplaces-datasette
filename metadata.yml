@@ -26,15 +26,14 @@ databases:
           select
             id,
             properties,
-            properties ->> 'addr:full' as address,
-            properties ->> 'website' as website,
+            json_extract(properties, '$.addr:full') as address,
+            json_extract(properties, '$.website') as website,
             geometry,
             'small' as [marker-size],
             'cafe' as [marker-symbol]
           from
             places
           where
-            properties ->> '@spider' = 'dunkindonuts'
-            and properties ->> 'addr:state' = 'MA'
-            and properties ->> 'addr:city' LIKE '%Boston%'
-
+            json_extract(properties, '$.@spider') = 'dunkindonuts'
+            and json_extract(properties, '$.addr:state') = 'MA'
+            and json_extract(properties, '$.addr:city') LIKE '%Boston%'

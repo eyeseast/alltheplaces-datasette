@@ -10,6 +10,7 @@ geojson-to-sqlite = {editable = true, ref = "25-bundle-properties", git = "https
 sqlite-utils = "*"
 tqdm = "*"
 census-map-downloader = "*"
+datasette-publish-fly = "*"
 
 [dev-packages]
 

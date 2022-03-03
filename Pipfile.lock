@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "85431bd0a3d054264a4357624db2917778513fed5b7837d62f7ec2c0cb064643"
+            "sha256": "6446a306469e7acf5693db6817e76fedcf929c38570b4c36b152e19d197d0ae1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -75,7 +75,7 @@
                 "sha256:2857e29ff0d34db842cd7ca3230549d1a697f96ee6d3fb071cfa6c7393832597",
                 "sha256:6881edbebdb17b39b4eaaa821b438bf6eddffb4468cf344f09f89def34a8b1df"
             ],
-            "markers": "python_full_version >= '3.5.0'",
+            "markers": "python_version >= '3.5'",
             "version": "==2.0.12"
         },
         "click": {
@@ -138,6 +138,14 @@
             ],
             "markers": "python_version >= '3.6'",
             "version": "==0.2.2"
+        },
+        "datasette-publish-fly": {
+            "hashes": [
+                "sha256:5194534e3ada64950c70c0c066d687c415cd3cb6750d1a33e704b6c8aeccfd81",
+                "sha256:8e8d20eba46d11a0d0379ded5731e96bc7489cf9e06371ff7322f8f81838b0c0"
+            ],
+            "index": "pypi",
+            "version": "==1.1.1"
         },
         "fiona": {
             "hashes": [
@@ -216,7 +224,7 @@
                 "sha256:84d9dd047ffa80596e0f246e2eab0b391788b0503584e8945f2368256d2735ff",
                 "sha256:9d643ff0a55b762d5cdb124b8eaa99c66322e2157b69160bc32796e824360e6d"
             ],
-            "markers": "python_full_version >= '3.5.0'",
+            "markers": "python_version >= '3.5'",
             "version": "==3.3"
         },
         "itsdangerous": {
@@ -549,7 +557,7 @@
                 "sha256:471b71698eac1c2112a40ce2752bb2f4a4814c22a54a3eed3676bc0f5ca9f663",
                 "sha256:c4666eecec1d3f50960c6bdf61ab7bc350648da6c126e3cf6898d8cd4ddcd3de"
             ],
-            "markers": "python_full_version >= '3.5.0'",
+            "markers": "python_version >= '3.5'",
             "version": "==1.2.0"
         },
         "sqlite-fts4": {
@@ -561,11 +569,11 @@
         },
         "sqlite-utils": {
             "hashes": [
-                "sha256:9605cc28a1a004c6f5363781ee9d5fc76e8ee56a2a83c6a66567d4f35b439dfa",
-                "sha256:d1b92f8752fe1eac87e7f18a6b0e09f8e3c9ff247cf36260588e2f047eafd253"
+                "sha256:38a970b97c17194d9605ab84df749802e1f3bcf06135dc180779d0a39576b142",
+                "sha256:a5b08dfc3a374446a79638de28c9ae9686ec5e2365c3d01baf27234a771edf53"
             ],
             "index": "pypi",
-            "version": "==3.24"
+            "version": "==3.25"
         },
         "tabulate": {
             "hashes": [
@@ -576,11 +584,11 @@
         },
         "tqdm": {
             "hashes": [
-                "sha256:8dd278a422499cd6b727e6ae4061c40b48fce8b76d1ccbf5d34fca9b7f925b0c",
-                "sha256:d359de7217506c9851b7869f3708d8ee53ed70a1b8edbba4dbcb47442592920d"
+                "sha256:1d9835ede8e394bb8c9dcbffbca02d717217113adc679236873eeaac5bc0b3cd",
+                "sha256:e643e071046f17139dea55b880dc9b33822ce21613b4a4f5ea57f202833dbc29"
             ],
             "index": "pypi",
-            "version": "==4.62.3"
+            "version": "==4.63.0"
         },
         "typing-extensions": {
             "hashes": [
