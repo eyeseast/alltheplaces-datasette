@@ -20,6 +20,18 @@ databases:
           order by
             spider
 
+      count_coffee:
+        sql: |
+          select
+            json_extract(properties, '$.@spider') as spider,
+            count(*)
+          from
+            places
+          where
+            spider like '%coffee%'
+          group by
+            spider
+
       dunkin_in_boston:
         title: Dunkin in Boston (LIKE)
         sql: |

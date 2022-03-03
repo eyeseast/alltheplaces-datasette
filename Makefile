@@ -49,7 +49,7 @@ publish:
 		-m metadata.yml \
 		--install datasette-geojson-map \
 		--install sqlite-colorbrewer \
-		--extra-options="--setting sql_time_limit_ms 5000"
+		--extra-options="--setting sql_time_limit_ms 10000"
 
 open:
 	flyctl open --app alltheplaces-datasette
