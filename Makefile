@@ -54,5 +54,14 @@ publish:
 open:
 	flyctl open --app alltheplaces-datasette
 
+exports/dunkin_in_suffolk.geojson:
+	mkdir -p $(dir $@)
+	pipenv run datasette $(DB) --get /alltheplaces/dunkin_in_suffolk.geojson \
+		-m metadata.yml \
+		--load-extension spatialite > $@
+
+exports: exports/dunkin_in_suffolk.geojson
+
 clean:
 	rm -rf output/ output.*
+	rm -rf exports/
