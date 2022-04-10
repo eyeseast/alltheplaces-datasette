@@ -1,5 +1,5 @@
 
-URL=https://data.alltheplaces.xyz/runs/2022-02-26-13-31-55/output.tar.gz
+URL=https://data.alltheplaces.xyz/runs/2022-04-09-13-31-42/output.tar.gz
 
 DB=alltheplaces.db
 
@@ -64,4 +64,3 @@ exports: exports/dunkin_in_suffolk.geojson
 
 clean:
 	rm -rf output/ output.*
-	rm -rf exports/
