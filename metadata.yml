@@ -37,7 +37,7 @@ databases:
       count_coffee:
         sql: |
           select
-            json_extract(properties, '$.@spider') as spider,
+            spider,
             count(*) as count
           from
             places
@@ -62,7 +62,7 @@ databases:
           from
             places
           where
-            json_extract(properties, '$.@spider') = 'dunkindonuts'
+            spider = 'dunkindonuts'
             and json_extract(properties, '$.addr:state') = 'MA'
             and json_extract(properties, '$.addr:city') LIKE '%Boston%'
 
@@ -71,14 +71,14 @@ databases:
         sql: |
           select
             places.id,
-            json_extract(places.properties, '$.@spider') as type,
+            spider as type,
             json_extract(places.properties, '$.addr:full') as address,
             json_extract(places.properties, '$.website') as website,
             places.geometry,
             'small' as [marker-size],
             'cafe' as [marker-symbol],
             case
-              json_extract(properties, '$.@spider')
+              spider
               when 'dunkindonuts' then '#8856a7'
               when 'starbucks' then '#2ca25f'
             end as [marker-color]
@@ -86,7 +86,7 @@ databases:
             places,
             counties
           where
-            json_extract(properties, '$.@spider') in ('dunkindonuts', 'starbucks', 'caribou_coffee')
+            spider in ('dunkindonuts', 'starbucks', 'caribou_coffee')
             and counties.geoid = '25025'
             and within(places.geometry, counties.geometry)
             and places.rowid in (
