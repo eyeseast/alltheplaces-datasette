@@ -28,6 +28,9 @@ build: $(DB)
 	find output/*.geojson | xargs -I {} pipenv run geojson-to-sqlite $(DB) places {} --spatialite --properties
 	pipenv run create-spatial-index $(DB) places geometry
 
+spider: $(DB)
+	pipenv run ./scripts/add-virtual-column.sh $(DB)
+
 states: processed/states_carto_2018.geojson
 	pipenv run geojson-to-sqlite $(DB) states $^ --pk geoid --spatialite
 	pipenv run sqlite-utils create-spatial-index $(DB) states geometry
@@ -43,7 +46,7 @@ run: alltheplaces.db
 		--setting sql_time_limit_ms 20000
 
 publish:
-	pipenv run datasette publish fly *.db \
+	pipenv run datasette publish fly alltheplaces.db \
 		--app alltheplaces-datasette \
 		--spatialite \
 		-m metadata.yml \

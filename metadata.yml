@@ -9,9 +9,10 @@ databases:
 
     queries:
       count_by_spider:
+        title: Count by spider
         sql: |
           select
-            json_extract(properties, "$.@spider") as spider,
+            spider,
             count(*) as count
           from
             places
@@ -19,6 +20,19 @@ databases:
             spider
           order by
             spider
+
+      count_by_spider_json:
+        title: Count by spider (JSON)
+        sql: |
+          select
+            json_extract(properties, "$.@spider") as _spider,
+            count(*) as count
+          from
+            places
+          group by
+            _spider
+          order by
+            _spider
 
       count_coffee:
         sql: |
