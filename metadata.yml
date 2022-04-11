@@ -58,11 +58,17 @@ databases:
             json_extract(properties, '$.website') as website,
             geometry,
             'small' as [marker-size],
-            'cafe' as [marker-symbol]
+            'cafe' as [marker-symbol],
+            case
+              spider
+              when 'dunkindonuts' then '#8856a7'
+              when 'starbucks' then '#2ca25f'
+            end as [marker-color]
+
           from
             places
           where
-            spider = 'dunkindonuts'
+            spider in ('dunkindonuts', 'starbucks')
             and json_extract(properties, '$.addr:state') = 'MA'
             and json_extract(properties, '$.addr:city') LIKE '%Boston%'
 
@@ -86,7 +92,7 @@ databases:
             places,
             counties
           where
-            spider in ('dunkindonuts', 'starbucks', 'caribou_coffee')
+            spider in ('dunkindonuts', 'starbucks')
             and counties.geoid = '25025'
             and within(places.geometry, counties.geometry)
             and places.rowid in (

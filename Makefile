@@ -40,9 +40,8 @@ counties: processed/counties_2020.geojson
 	pipenv run sqlite-utils create-spatial-index $(DB) counties geometry
 
 run: alltheplaces.db
-	pipenv run datasette serve *.db \
+	pipenv run datasette serve . \
 		--load-extension spatialite \
-		-m metadata.yml \
 		--setting sql_time_limit_ms 20000
 
 publish:
