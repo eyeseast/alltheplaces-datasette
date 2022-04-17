@@ -1,7 +1,10 @@
 
-URL=https://data.alltheplaces.xyz/runs/2022-04-09-13-31-42/output.tar.gz
+URL=$(shell curl https://data.alltheplaces.xyz/runs/history.json | jq -r 'sort_by(.start_time) | reverse [0].output_url')
 
 DB=alltheplaces.db
+
+url:
+	@echo $(URL)
 
 output.tar.gz:
 	wget -O $@ $(URL)
