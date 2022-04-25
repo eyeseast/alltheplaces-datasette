@@ -15,13 +15,14 @@ processed/states_carto_2018.geojson:
 processed/counties_2020.geojson:
 	pipenv run censusmapdownloader counties
 
-alltheplaces.db:
+$(DB):
 	pipenv run sqlite-utils create-database --enable-wal --init-spatialite $@
 	pipenv run sqlite-utils create-table $@ places \
 		id text \
 		properties text \
 		--pk id
 	pipenv run sqlite-utils add-geometry-column $@ places geometry
+	pipenv run create-spatial-index $(DB) places geometry
 
 update: output.tar.gz
 	tar -zxvf $^
@@ -29,7 +30,7 @@ update: output.tar.gz
 
 build: $(DB)
 	find output/*.geojson | xargs -I {} pipenv run geojson-to-sqlite $(DB) places {} --spatialite --properties
-	pipenv run create-spatial-index $(DB) places geometry
+	pipenv run sqlite-utils vacuum $(DB)
 
 spider: $(DB)
 	pipenv run ./scripts/add-virtual-column.sh $(DB)
