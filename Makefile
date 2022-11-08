@@ -51,7 +51,7 @@ build:
 	docker build . -t $(IMAGE):latest
 
 container:
-	docker run -it --rm -p 8001:8001 $(IMAGE):latest
+	docker run -it --rm -e 8001:8001 $(IMAGE):latest
 
 run: alltheplaces.db
 	pipenv run datasette serve . \
@@ -65,7 +65,7 @@ publish:
 		-m metadata.yml \
 		--install datasette-geojson-map \
 		--install sqlite-colorbrewer \
-		--extra-options="--setting sql_time_limit_ms 10000"
+		--extra-options="--setting sql_time_limit_ms 20000"
 
 open:
 	flyctl open --app alltheplaces-datasette
