@@ -8,3 +8,7 @@ processed/
 *.db-wal
 *.db-journal
 *.db-shm
+
+.DS_Store
+inspect.json
+requirements.txt

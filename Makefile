@@ -3,6 +3,8 @@ URL=$(shell curl https://data.alltheplaces.xyz/runs/history.json | jq -r 'sort_b
 
 DB=alltheplaces.db
 
+IMAGE=alltheplaces-datasette
+
 url:
 	@echo $(URL)
 
@@ -28,7 +30,7 @@ update: output.tar.gz
 	tar -zxvf $^
 	find output -type f -empty -delete
 
-build: $(DB)
+places: $(DB)
 	find output/*.geojson | xargs -I {} pipenv run geojson-to-sqlite $(DB) places {} --spatialite --properties
 	pipenv run sqlite-utils vacuum $(DB)
 
@@ -42,6 +44,14 @@ states: processed/states_carto_2018.geojson
 counties: processed/counties_2020.geojson
 	pipenv run geojson-to-sqlite $(DB) counties $^ --pk geoid --spatialite
 	pipenv run sqlite-utils create-spatial-index $(DB) counties geometry
+
+build:
+	pipenv requirements > requirements.txt
+	pipenv run datasette inspect > inspect.json
+	docker build . -t $(IMAGE):latest
+
+container:
+	docker run -it --rm -p 8001:8001 $(IMAGE):latest
 
 run: alltheplaces.db
 	pipenv run datasette serve . \
