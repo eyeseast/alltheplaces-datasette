@@ -24,7 +24,7 @@ $(DB):
 		properties text \
 		--pk id
 	pipenv run sqlite-utils add-geometry-column $@ places geometry
-	pipenv run create-spatial-index $(DB) places geometry
+	pipenv run sqlite-utils create-spatial-index $(DB) places geometry
 
 update: output.tar.gz
 	tar -zxvf $^
