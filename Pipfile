@@ -13,6 +13,7 @@ geojson-to-sqlite = "*"
 datasette-query-files = "*"
 
 [dev-packages]
+ipython = "*"
 
 [requires]
 python_version = "3.11"

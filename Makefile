@@ -63,6 +63,7 @@ publish:
 		--app alltheplaces-datasette \
 		--spatialite \
 		-m metadata.yml \
+		--plugins-dir plugins \
 		--install datasette-geojson-map \
 		--install sqlite-colorbrewer \
 		--extra-options="--setting sql_time_limit_ms 20000"
