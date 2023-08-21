@@ -17,6 +17,9 @@ processed/states_carto_2018.geojson:
 processed/counties_2020.geojson:
 	pipenv run censusmapdownloader counties
 
+install:
+	pipenv sync
+
 $(DB):
 	pipenv run sqlite-utils create-database --enable-wal --init-spatialite $@
 	pipenv run sqlite-utils create-table $@ places \
@@ -71,11 +74,14 @@ publish:
 open:
 	flyctl open --app alltheplaces-datasette
 
-exports/dunkin_in_suffolk.geojson:
+exports/dunkin_in_suffolk.geojson: $(DB)
 	mkdir -p $(dir $@)
 	pipenv run datasette $(DB) --get /alltheplaces/dunkin_in_suffolk.geojson \
 		-m metadata.yml \
 		--load-extension spatialite > $@
+
+exports/places.fgb: $(DB)
+	ogr2ogr -f FlatGeoBuf -sql 'select * from places' $@ $(DB)
 
 exports: exports/dunkin_in_suffolk.geojson
 
